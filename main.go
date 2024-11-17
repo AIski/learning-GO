@@ -2,25 +2,18 @@ package main
 
 import (
 	"fmt"
-	"unicode/utf8"
 )
 
 func main() {
 
-	var num float32 = 523525.5525125
-	fmt.Println(num)
+	const busTicketsTotal = 10
 
-	var str string = "To jest zwykły string"
-	fmt.Println(str)
+	fmt.Printf("Total tickets bus limit we got: %v.\n", busTicketsTotal)
 
-	fmt.Print("Długość stringa w runach):")
+	var currentTickets = busTicketsTotal
+	currentTickets = currentTickets - 1
+	currentTickets = currentTickets - 1
 
-	fmt.Print(utf8.RuneCountInString(str))
+	fmt.Printf("Current tickets we got: %v from total of %v tickets.\n", currentTickets, busTicketsTotal)
 
-	var myRune rune = 'a'
-
-	fmt.Println(myRune)
-
-	var myBoolean bool = false
-	fmt.Println(myBoolean)
 }

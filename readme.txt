@@ -14,3 +14,5 @@ import (
 	"fmt"
     }
     then we can just use fmt.Print("Message");
+
+// const is for constants, they are like variables, just their value cannot be changed.
