@@ -1,3 +1,3 @@
-module my_first_project
+module investment_calculator
 
 go 1.23.3
