@@ -1,35 +1,39 @@
-// package main
+package main
 
-// import "fmt"
+import "fmt"
 
-// func main() {
+func main() {
 
-// 	revenue, expenses, taxRate := 0.0, 0.0, 0.0
+	revenue := getUserInput("revenue")
+	expenses := getUserInput("expenses")
+	taxRate := getUserInput("taxRate")
 
-// 	fmt.Println("Input your revenue: ")
-// 	fmt.Scan(&revenue)
+	ebt, eat, ratio := calculateFeatureValues(revenue, expenses, taxRate)
 
-// 	fmt.Println("Input your expenses: ")
-// 	fmt.Scan(&expenses)
+	printValues(ebt, eat, ratio)
 
-// 	fmt.Println("Input your taxRate: ")
-// 	fmt.Scan(&taxRate)
+}
 
-// 	ebt := revenue - expenses
-// 	var eat = ebt * (1 - taxRate/100)
+func getUserInput(variableName string) float64 {
+	var userInput float64
+	fmt.Printf("Input your %s: \n", variableName)
+	fmt.Scan(&userInput)
+	return userInput
+}
 
-// 	var ratio = ebt / eat
+func calculateFeatureValues(revenue, expenses, taxRate float64) (ebt, eat, ratio float64) {
+	ebt = revenue - expenses
+	eat = ebt * (1 - taxRate/100)
+	ratio = ebt / eat
 
-// 	// formatedEbt := fmt.Sprintf("Total Earnings before tax: %.2f. \n", ebt)
-// 	// formatedEat := fmt.Sprintf("Total Earnings after tax: %.2f. \n", eat)
-// 	// formatedRatio := fmt.Sprintf("Ratio: %.2f. \n", ratio)
+	return ebt, eat, ratio
+}
 
-// 	// fmt.Print(formatedEbt, formatedEat, formatedRatio)
-
-// 	fmt.Printf(
-// 		`Total Earnings before tax: %.2f.
-// 		Total Earnings after tax: %.2f.
-// 		Ratio: %.2f.
-// 		`,
-// 		ebt, eat, ratio)
-// }
+func printValues(ebt, eat, ratio float64) {
+	fmt.Printf(
+		`Total Earnings before tax: %.2f.
+		Total Earnings after tax: %.2f.
+		Ratio: %.2f.
+		`,
+		ebt, eat, ratio)
+}
