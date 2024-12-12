@@ -37,6 +37,7 @@ func main() {
 	if err != nil {
 		fmt.Print("ERROR: ", err)
 		fmt.Print("---------")
+		// panic("Calling panic function!")
 	}
 
 	fmt.Println("Welcome to the bank.")
@@ -58,6 +59,7 @@ func main() {
 		switch choice {
 		case 1:
 			logBalance(accountBalance)
+			saveBalanceToFile(accountBalance)1
 			continue
 		case 2:
 			withdraw(&accountBalance)
@@ -65,6 +67,7 @@ func main() {
 			continue
 		case 3:
 			deposit(&accountBalance)
+			saveBalanceToFile(accountBalance)
 			continue
 		default:
 			fmt.Println("Goodbye!")
