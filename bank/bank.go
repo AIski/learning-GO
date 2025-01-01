@@ -1,39 +1,16 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"os"
-	"strconv"
+
+	"github.com/Pallinder/go-randomdata"
+	"pl.aski/bank/fileOps"
 )
 
 const accountBalanceFile = "balance.txt"
 
-func saveBalanceToFile(balance float64) {
-	balanceText := fmt.Sprint(balance)
-	os.WriteFile(
-		accountBalanceFile,
-		[]byte(balanceText),
-		0644)
-}
-
-func readBalanceFromFile() (float64, error) {
-	data, err := os.ReadFile(accountBalanceFile)
-	if err != nil { // we got error, nil mean absence of anything useful
-		return 1000, errors.New("Failed to find balance file.")
-	}
-
-	balanceText := string(data)
-	balance, err := strconv.ParseFloat(balanceText, 64)
-	if err != nil {
-		return 1000, errors.New("Failed to parse stored balance value.")
-	}
-
-	return balance, nil
-}
-
 func main() {
-	accountBalance, err := readBalanceFromFile()
+	accountBalance, err := fileOps.GetFloatFromFile(accountBalanceFile)
 	if err != nil {
 		fmt.Print("ERROR: ", err)
 		fmt.Print("---------")
@@ -41,14 +18,10 @@ func main() {
 	}
 
 	fmt.Println("Welcome to the bank.")
+	fmt.Println("Reach us 24/7", randomdata.PhoneNumber())
 
 	for {
-		fmt.Println("What do you want to do?")
-		fmt.Println("1. Check balance.")
-		fmt.Println("2. Withdraw money.")
-		fmt.Println("3. Deposit money.")
-		fmt.Println("4. Exit. Bye.")
-
+		presentOptions()
 		var choice int
 
 		fmt.Println("Please enter your choice (number):")
@@ -59,15 +32,15 @@ func main() {
 		switch choice {
 		case 1:
 			logBalance(accountBalance)
-			saveBalanceToFile(accountBalance)1
+			fileOps.SaveFloatToFile(accountBalanceFile, accountBalance)
 			continue
 		case 2:
 			withdraw(&accountBalance)
-			saveBalanceToFile(accountBalance)
+			fileOps.SaveFloatToFile(accountBalanceFile, accountBalance)
 			continue
 		case 3:
 			deposit(&accountBalance)
-			saveBalanceToFile(accountBalance)
+			fileOps.SaveFloatToFile(accountBalanceFile, accountBalance)
 			continue
 		default:
 			fmt.Println("Goodbye!")
